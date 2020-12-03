@@ -30,6 +30,30 @@
              }
            }
          },
+         "delete": {
+          "tags": [
+            "user"
+          ],
+          "summary": "Delete user",
+          "operationId": "deleteUser",
+          "responses": {
+            "default": {
+              "description": "Delete user"
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "user"
+          ],
+          "summary": "Update user",
+          "operationId": "updateUser",
+          "responses": {
+            "default": {
+              "description": "Update data user "
+            }
+          }
+        },
          "post": {
            "tags": [
              "user"
