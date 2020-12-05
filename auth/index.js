@@ -7,13 +7,18 @@ function sign(data) {
 }
 
 function verify(token) {
-  return jwt.verify(token, secreto)
+  return jwt.verify(token, secret)
 }
 
 const check = {
   own: function (req, owner) {
-    const decoded = decodeHeader();
+    const decoded = decodeHeader(req);
     console.log(decoded);
+
+    if (decoded.id !== owner) {
+      throw new Error('Unauthorized. Pemission denied.')
+    }
+
   },
 }
 
@@ -21,10 +26,10 @@ function getToken(auth) {
   if (!auth) {
     throw new Error('No Token.')
   }
-  if (auth.indexOf('Bearer') === -1) {
+  if (auth.indexOf('Bearer ') === -1) {
     throw new Error('Invalid format.');
   }
-  let token = auth.replace('Bearer', '')
+  let token = auth.replace('Bearer ', '')
   return token;
 }
 
@@ -39,4 +44,5 @@ function decodeHeader(req) {
 
 module.exports = {
   sign,
+  check,
 }
