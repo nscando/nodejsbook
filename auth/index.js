@@ -24,10 +24,10 @@ const check = {
 
 function getToken(auth) {
   if (!auth) {
-    throw new Error('No Token.')
+    throw error('No Token.', 401)
   }
   if (auth.indexOf('Bearer ') === -1) {
-    throw new Error('Invalid format.');
+    throw error('Invalid format.', 401);
   }
   let token = auth.replace('Bearer ', '')
   return token;
