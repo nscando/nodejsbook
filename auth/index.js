@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
-const config = require('../config')
+const config = require('../config');
 const secret = config.jwt.secret;
+const error = require('../utils/error');
 
 function sign(data) {
   return jwt.sign(data, secret)
@@ -16,11 +17,10 @@ const check = {
     console.log(decoded);
 
     if (decoded.id !== owner) {
-      throw new Error('Unauthorized. Pemission denied.')
+      throw error('Unauthorized. Pemission denied.', 401)
     }
-
   },
-}
+};
 
 function getToken(auth) {
   if (!auth) {
@@ -31,7 +31,7 @@ function getToken(auth) {
   }
   let token = auth.replace('Bearer ', '')
   return token;
-}
+};
 
 function decodeHeader(req) {
   const authorization = req.headers.authorization || '';
@@ -40,9 +40,9 @@ function decodeHeader(req) {
 
   req.user = decoded;
   return decoded;
-}
+};
 
 module.exports = {
   sign,
   check,
-}
+};
