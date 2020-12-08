@@ -62,3 +62,4 @@ typings/
 
 # config db
 .config.js
+.vercel
