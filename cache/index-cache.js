@@ -13,6 +13,6 @@ app.use('/', router);
 
 
 
-app.listen(config.mysqlService.port, () => {
-     console.log('[MySql] service listening on port:', config.mysqlService.port);
+app.listen(config.cacheService.port, () => {
+     console.log('[CACHE] service listening on port:', config.cacheService.port);
 });
