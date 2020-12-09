@@ -23,6 +23,11 @@ module.exports = {
      cacheService: {
           host: process.env.CACHE_SRV_HOST || 'localhost',
           port: process.env.CACHE_SRV_PORT || 3003,
+     },
+     redis: {
+          host: process.env.REDIS_HOST || 'redis-10301.c14.us-east-1-2.ec2.cloud.redislabs.com',
+          port: process.env.REDIS_PORT || '10301',
+          password: process.env.REDIS_PASS || 'Ad1mtyYLNz8UIH0BNDGj1WJxz4ltXEI0'
      }
 
 };
