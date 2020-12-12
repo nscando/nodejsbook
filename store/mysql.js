@@ -35,51 +35,51 @@ function handleCon() {
 
 handleCon();
 
-const list = async (table) => new Promise((resolve, reject) => {
-     connection.query(`SELECT * FROM ${table}`, (error, data) => {
-          if (error) { return reject(error) }
-          resolve(data)
-     })
-})
-
-const get = async (table, where, join = '') => new Promise((resolve, reject) => {
-     console.log('table', table)
-     console.log('where', where)
-     console.log('join', join)
-     let joinQuery = ''
-     if (join) {
-          join.forEach((element, i) => {
-               const key = Object.keys(element)[0]
-               const val = element[key]
-               joinQuery += ` JOIN ${key} ON ${table}.${val} = ${key}.id`
+function list(table) {
+     return new Promise((resolve, reject) => {
+          connection.query(`SELECT * FROM ${table}`, (err, data) => {
+               if (err) return reject(err);
+               resolve(data);
           })
+     })
+}
+
+function get(table, id) {
+     return new Promise((resolve, reject) => {
+          connection.query(`SELECT * FROM ${table} WHERE id='${id}'`, (err, data) => {
+               if (err) return reject(err);
+               resolve(data);
+          })
+     })
+}
+
+function insert(table, data) {
+     return new Promise((resolve, reject) => {
+          console.log(`INSERT INTO ${table} SET ?`, data)
+          connection.query(`INSERT INTO ${table} SET ?`, data, (err, result) => {
+               if (err) return reject(err);
+               resolve(result);
+          })
+     })
+}
+
+function update(table, data) {
+     return new Promise((resolve, reject) => {
+          connection.query(`UPDATE ${table} SET ? WHERE id=?`, [data, data.id], (err, result) => {
+               if (err) return reject(err);
+               resolve(result);
+          })
+     })
+}
+
+async function upsert(table, data) {
+     const result = await get(table, data.id);
+     if (result.length < 1) {
+          return insert(table, data);
+     } else {
+          return update(table, data);
      }
-     console.log('table', table)
-     console.log('joinQuery', joinQuery)
-     console.log('where', where)
-
-     connection.query(`SELECT * FROM ${table} ${joinQuery} WHERE ${'? AND '.repeat(where.length)} 1`, where, (error, data) => {
-          if (error) { return reject(error) }
-          console.log(data)
-          resolve(data)
-     })
-})
-
-const insert = (table, data) => new Promise((resolve, reject) => {
-     connection.query(`INSERT INTO ${table} SET ?`, data, (err, result) => {
-          if (err) return reject(err)
-          resolve(result)
-     })
-})
-
-const upsert = async (table, payload) => new Promise((resolve, reject) => {
-     connection.query(`INSERT INTO ${table} SET ? ON DUPLICATE KEY UPDATE ?`, [payload, payload], (error, data) => {
-          if (error) { return reject(error) }
-          resolve(data)
-     })
-})
-
-const remove = async (table, id) => true
+}
 
 function query(table, query, join) {
      let joinQuery = '';
@@ -101,7 +101,6 @@ module.exports = {
      list,
      get,
      upsert,
-     remove,
      query,
      insert
 }
