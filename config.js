@@ -7,9 +7,9 @@ module.exports = {
      },
      mysql: {
           host: process.env.MYSQL_HOST || 'remotemysql.com',
-          user: process.env.MYSQL_USER || 'hutFuvm9OX',
-          password: process.env.MYSQL_PASS || 'vH8ucLLB4B',
-          database: process.env.MYSQL_DB || 'hutFuvm9OX',
+          user: process.env.MYSQL_USER || '',
+          password: process.env.MYSQL_PASS || '',
+          database: process.env.MYSQL_DB || '',
 
      }
 };
