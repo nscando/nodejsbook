@@ -1,33 +1,33 @@
 module.exports = {
      remoteDB: process.env.REMOTE_DB || false,
      api: {
-          port: process.env.API_PORT || 3000
+          port: process.env.API_PORT || ''
      },
      post: {
-          port: process.env.POST_PORT || 3002
+          port: process.env.POST_PORT || ''
      },
      jwt: {
-          secret: process.env.JWT_SECRET || 'notesecret'
+          secret: process.env.JWT_SECRET || ''
      },
      mysql: {
-          host: process.env.MYSQL_HOST || 'remotemysql.com',
-          user: process.env.MYSQL_USER || 'hutFuvm9OX',
-          password: process.env.MYSQL_PASS || 'vH8ucLLB4B',
-          database: process.env.MYSQL_DB || 'hutFuvm9OX',
+          host: process.env.MYSQL_HOST || '.com',
+          user: process.env.MYSQL_USER || '',
+          password: process.env.MYSQL_PASS || '',
+          database: process.env.MYSQL_DB || '',
 
      },
      mysqlService: {
-          host: process.env.MYSQL_SRV_HOST || 'localhost',
-          port: process.env.MYSQL_SRV_PORT || 3001,
+          host: process.env.MYSQL_SRV_HOST || '',
+          port: process.env.MYSQL_SRV_PORT || '',
      },
      cacheService: {
           host: process.env.CACHE_SRV_HOST || 'localhost',
-          port: process.env.CACHE_SRV_PORT || 3003,
+          port: process.env.CACHE_SRV_PORT || '',
      },
      redis: {
-          host: process.env.REDIS_HOST || 'redis-10301.c14.us-east-1-2.ec2.cloud.redislabs.com',
+          host: process.env.REDIS_HOST || '',
           port: process.env.REDIS_PORT || '10301',
-          password: process.env.REDIS_PASS || 'Ad1mtyYLNz8UIH0BNDGj1WJxz4ltXEI0'
+          password: process.env.REDIS_PASS || ''
      }
 
 };
